@@ -1,0 +1,126 @@
+========================================================================
+IC Plus/Tamarack/Sundance IP1000A/TC9021 NDIS 2.0.1 OS/2 MAC Driver 1.10
+========================================================================
+
+1.Included files
+
+tc902x.os2	NDIS 2.0.1 MAC driver
+tc902x.nif	Network Information File
+tc902x.sym	Symbol Map file
+tc902x.lnk	Document (this file)
+source.zip	Zip archive of source files
+
+You could download the latest file on the gomi:NDIS MAC Drivers page,
+URL http://www.os2warp.be/index2.php?name=gomindis .
+
+
+2.No Warranty
+
+This code is provided 'AS IS' and any warranties are disclaimed.
+
+
+3.Functional restrictions
+
+- Fiber media may not be supported.
+- VLAN/Priority function is not supported.
+- No recovery from Host Bus(PCI) Error (Master/Target Abort) condition.
+
+
+4.Note
+
+- I guess that this driver will work on SMP environment. No test.
+- PHYsical medium address is searched instead of using always 1. 
+   IP1000A uses address 18h.
+- IP1000A does not set TxComplete bit of TxStatus register(60.8). 
+   Why? FreeBSD driver on IC Pluse website seems to use this bit. 
+   The chip used on Asus NX1101 has an errata? bizarre!
+- The chips revison >0x0c could check TCP Checksum VALIDLY.
+
+
+5.Redistribution with modification
+
+Your should add your copyright notice, 
+"(c)Copyright 2004 your name. All rights reserved."
+and remove mine (if it exists),
+"(c)Copyright 2004 chagrin. Some rights reserved."
+
+This means that the modified binary/source is not mine, but yours, 
+regardless of the degree of the modification. 
+You can redistribute, of course, that for the commercial purpose 
+without any fee to me, without releasing the source, if you want.
+
+Don't forget that I'm never liable for your product.
+(You, also, should add a disclaimer.)
+
+
+6.History
+
+ver.1.10 - 12/17, 2005.
+- 1 new keyword, IRQ15OVR, was added.
+
+ver.1.09 - 12/3, 2005.
+- IC Plus IP1000A is supported.
+- PHY address is searched instead of using always 1.
+- MAC address is (re)set at the init time.
+- Transmit confirm code was modified for IP1000A.
+- 3 new keyword are added.
+
+ver.1.08 - 4/1, 2004.
+- PHY medium initialize, speed detection code were modified.
+- One new keyword, RXINTCOUNT, was added.
+- The format of MAXFRAME keyword was modified.
+
+ver.1.07 - 12/29, 2003.
+- Bus master enable and memory space enable bits in PCI command register 
+   are scanned at the initial time.
+
+ver.1.06 - 11/18, 2003.
+- Power Management capability in PCI register is scanned at initial time.
+- EARLYMEMINIT=TRUE in config.sys was supported.
+
+ver.1.05 - 7/12, 2003.
+- Bugfix: Loss of recieve buffers with errored frame rejection was corrected.
+  (this is enbuged at ver.1.04. Sorry!)
+- I/O delay to access PHY registers was added.
+
+ver.1.04 - 7/1, 2003.
+- Bugfix: Trap at _hwUpdateStat was corrected. (stack adjustment failure)
+- Bugfix: Transmit Data Type 2, GDT selector, can be acceptable.
+- Receive queue logic was modified. (to avoid null linkage)
+
+ver.1.03 - 12/8, 2002.
+- Bugfix: Read ANLPAR:-)  (this is miss-removed at ver.1.01)
+- Stop auto negotiation restart when link is re-established.
+- enlarged TXQUEUE and RXQUEUE.(excess!)
+
+ver.1.02 - 11/6, 2002.
+- Bugfix: Multicast hash table was corrected.
+- Bugfix: Pause status is tested when the transmitter suspends.
+- Auto negotiation give-up time was reduced. (about 12 second)
+- New configuration keyword, TXCOMPINT, was added.
+- Invalid keyword warning messages were added.
+
+ver.1.01 - 9/25, 2002.
+-  6 configuration keywords were added, the queue counts were enlarged.
+-  Auto negotiation code was modified. (simplified)
+-  Media speed in MAC characteristic table reflects the current media speed.
+
+ver.1.00 - 9/19, 2002.
+-  Initial release.
+  (a bug to enlarge rx queue, and another bug found in previous upload 
+  code. sorry!!)
+
+
+7.Acknowledgement
+
+Tamarack sent me TC9021 Datasheet as soon as I requested it.
+I could know PHY information from National Semiconductor DP83861 Datasheet.
+
+
+8.Contact to the author
+
+Access os2warp.be Technical Support Center,
+URL http://www.os2warp.be/support/
+ or
+Email to YANAGIHARA Nobuyuki,
+ <VYL00513@nifty.ne.jp>
